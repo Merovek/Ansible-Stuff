@@ -3,12 +3,6 @@
   become: true
 
   tasks:
-    - name: Wait for dpkg lock
-      wait_for:
-        path: /var/lib/dpkg/lock
-        state: absent
-      become: yes
-
     - name: install packages
       apt:
         state: present
