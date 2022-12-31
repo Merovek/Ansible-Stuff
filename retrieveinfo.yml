@@ -1,12 +1,12 @@
 ---
 - hosts: all
   tasks:
-    - name: Get IP address information
-      command: ip -o -4 addr show
-      register: ip_info
+    - name: Get list of IP addresses
+      shell: ip a
+      register: ip_addresses
 
     - name: Print IP address information
       debug:
         msg: "{{ item }}"
+      loop: "{{ ip_addresses.stdout_lines }}"
       when: not item | match('inet 169')
-      with_items: "{{ ip_info.stdout_lines }}"
