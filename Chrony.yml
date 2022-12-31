@@ -3,9 +3,11 @@
   become: true
 
   tasks:
-    - name: Wait for sudo
+    - name: Wait for dpkg lock
       wait_for:
-        connect_as_sudo_user: true
+        path: /var/lib/dpkg/lock
+        state: absent
+      become: yes
 
     - name: install packages
       apt:
