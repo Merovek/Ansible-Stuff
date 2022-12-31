@@ -1,12 +1,12 @@
 ---
 - hosts: all
   become: true
-  
-- name: Wait for sudo
-  become: yes
-  shell:  while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
 
   tasks:
+    - name: Wait for sudo
+      wait_for:
+        connect_as_sudo_user: true
+
     - name: install packages
       apt:
         state: present
