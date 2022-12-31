@@ -7,6 +7,6 @@
 
     - name: Print IP address information
       debug:
-        msg: "{{ item.stdout }}"
-      when: item.stdout | ipaddr('address') != "169.0.0.0/8"
-      with_items: "{{ ip_info.results }}"
+        msg: "{{ item }}"
+      when: item | ipaddr('address') != "169.0.0.0/8"
+      with_items: "{{ ip_info.stdout_lines }}"
