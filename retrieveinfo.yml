@@ -1,16 +1,6 @@
 ---
 - hosts: all
   tasks:
-    - name: Install pip
-      apt:
-        name: python3-pip
-        state: present
-
-    - name: Install netaddr module
-      pip:
-        name: netaddr
-        state: present
-
     - name: Get IP address information
       command: ip -o -4 addr show
       register: ip_info
@@ -18,5 +8,5 @@
     - name: Print IP address information
       debug:
         msg: "{{ item }}"
-      when: item | ipaddr('address') != "169.0.0.0/8"
+      when: not item | match('inet 169')
       with_items: "{{ ip_info.stdout_lines }}"
