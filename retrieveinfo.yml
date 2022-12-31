@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: Get IP address information
+      command: ip -o -4 addr show
+      register: ip_info
+
+    - name: Print IP address information
+      debug:
+        msg: "{{ item.stdout }}"
+      when: item.stdout | ipaddr('address') != "169.0.0.0/8"
+      with_items: "{{ ip_info.results }}"
