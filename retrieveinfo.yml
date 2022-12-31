@@ -1,6 +1,11 @@
 ---
 - hosts: all
   tasks:
+    - name: Install netaddr module
+      pip:
+        name: netaddr
+        state: present
+
     - name: Get IP address information
       command: ip -o -4 addr show
       register: ip_info
