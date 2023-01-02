@@ -1,13 +1,11 @@
 ---
 - hosts: all
-  become: true
-
   tasks:
-    - name: install packages
-      apt:
-        state: present
-        name:
-          - tcsh
-          - htop
-
-#test
+  - package:
+      name: "httpd"
+      state: present
+    when ansible_facts["os_name"] == "RedHat"
+  - package:
+      name: "apache2"
+      state: present
+    when ansible_facts["os_name"] == "Ubuntu"
