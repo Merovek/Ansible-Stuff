@@ -1,6 +1,11 @@
 ---
 - hosts: all
   tasks:
-    - name: Print ansible_facts
-      debug:
-        var: ansible_facts
+  - package:
+      name: "httpd"
+      state: present
+    when: ansible_facts["distribution"] == "RedHat"
+  - package:
+      name: "apache2"
+      state: present
+    when: ansible_facts["distribution"] == "Ubuntu"
