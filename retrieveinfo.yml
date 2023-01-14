@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    created_username: sammy
+    created_username: mschuuri
 
   tasks:
     - name: Install aptitude
