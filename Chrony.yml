@@ -1,12 +1,11 @@
 ---
-- hosts: all
+- hosts: AppServer
   become: yes
   tasks:
   - name: Installs nginx web server
-    apt:
+    yum:
       name: nginx
       state: present
-      update_cache: true
     notify:
     - start nginx
   handlers:
