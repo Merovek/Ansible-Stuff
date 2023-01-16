@@ -1,16 +1,16 @@
 ---
-- hosts: all !containers
-  vars:
-    ansible_python_interpreter: /usr/bin/python2
+- hosts: all
+  become: yes
   tasks:
-    - name: check if a reboot is required
-      shell: "[ -f /var/run/reboot-required ]"
-      failed_when: False
-      register: reboot_required
-      changed_when: reboot_required.rc == 0
-      notify: user_message
-
+  - name: Installs nginx web server
+    apt:
+      name: nginx
+      state: started
+      update_cache: true
+    notify:
+    - start nginx
   handlers:
-    - name: user_message
-      debug:
-        msg: "Reboot required"
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
