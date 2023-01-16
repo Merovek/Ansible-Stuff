@@ -3,12 +3,14 @@
   become: yes
  
   tasks:
-  - name: Add repository
-    ansible.builtin.yum_repository:
+  - name: Add EPEL repository
+    yum_repository:
       name: epel
       description: EPEL YUM repo
-      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
- 
+      baseurl: https://download.fedoraproject.org/pub/epel/7/$basearch/
+      gpgcheck: yes
+      gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+      enabled: yes
   - name: Installs nginx web server
     yum:
       name: nginx
